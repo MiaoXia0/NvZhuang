@@ -1,6 +1,6 @@
 from nonebot import MessageSegment
 from hoshino import Service
-import config
+import .config
 
 sv = Service('NvZhuang', enable_on_default=False)
 
