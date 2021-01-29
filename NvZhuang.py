@@ -1,3 +1,5 @@
+from random import random
+
 from nonebot import MessageSegment
 from hoshino import Service, R
 from hoshino.typing import CQEvent, HoshinoBot
@@ -61,12 +63,14 @@ async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
 async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
     groupid = ev.group_id
     groupid = str(groupid)
+    imgs = os.listdir(R.img('NvZhuang/').path)
+    img=R.img('NvZhuang/' + random.choice(imgs))
     try:
         if config[groupid]['AT']:
-            await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！\n' + R.img('NvZhuang.jpg').cqcode)
+            await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！\n' + img.cqcode)
         else:
             info = await bot.get_stranger_info(user_id=config[groupid]['QQ'], no_cache=True)
             nickname = info['nickname']
-            await bot.send(ev, nickname + '女装！\n' + R.img('NvZhuang.jpg').cqcode)
+            await bot.send(ev, nickname + '女装！\n' + img.cqcode)
     except KeyError:
         await bot.send(ev, '请先设置迫害QQ')

@@ -1,10 +1,10 @@
 # Hoshinobot女装迫害插件
 ## 简介
-本插件可使机器人@群内某人或发送其昵称，让他女装。\
+本插件可使机器人@群内某人或发送其昵称并发图让他女装。\
 插件默认启用
 ## 安装方法
 1. 在hoshino/modules文件夹下使用git clone本项目
-2. 将NvZhuang.jpg放到资源文件夹/img/下
+2. 将NvZhuang.jpg或你自己找的迫害图全部放到资源文件夹/img/NvZhuang下
 3. 在hoshino/config/\_\_bot\_\_.py中添加本插件
 ## 指令说明
 |指令|功能|
