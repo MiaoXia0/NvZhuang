@@ -17,9 +17,14 @@ config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
 async def setAt(bot: HoshinoBot, ev: CQEvent):
     # global at
     # at = True
+
     groupid = ev.group_id
     groupid = str(groupid)
-    config[groupid]['AT'] = True
+    try:
+        qq = config[groupid]['QQ']
+    except KeyError:
+        qq = 0
+    config[groupid] = {'AT': True, 'QQ': qq}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已设置@被迫害者')
 
@@ -31,7 +36,11 @@ async def setnoAt(bot: HoshinoBot, ev: CQEvent):
     # at = False
     groupid = ev.group_id
     groupid = str(groupid)
-    config[groupid]['AT'] = False
+    try:
+        qq = config[groupid]['QQ']
+    except KeyError:
+        qq = 0
+    config[groupid] = {'AT': False, 'QQ': qq}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已设置不@被迫害者')
 
@@ -43,7 +52,11 @@ async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
     # qq = int(ev.message.extract_plain_text())
     groupid = ev.group_id
     groupid = str(groupid)
-    config[groupid]['QQ'] = int(ev.message.extract_plain_text())
+    try:
+        at = config[groupid]['AT']
+    except KeyError:
+        at = False
+    config[groupid] = { 'AT':at,'QQ': int(ev.message.extract_plain_text())}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已将被迫害者QQ设为' + str(config[groupid]['QQ']))
 
@@ -52,9 +65,12 @@ async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
 async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
     groupid = ev.group_id
     groupid = str(groupid)
-    if config[groupid]['AT']:
-        await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！')
-    else:
-        info = await bot.get_stranger_info(user_id=config[groupid]['QQ'], no_cache=True)
-        nickname = info['nickname']
-        await bot.send(ev, nickname + '女装！')
+    try:
+        if config[groupid]['AT']:
+            await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！')
+        else:
+            info = await bot.get_stranger_info(user_id=config[groupid]['QQ'], no_cache=True)
+            nickname = info['nickname']
+            await bot.send(ev, nickname + '女装！')
+    except KeyError:
+        await bot.send(ev, '请先设置迫害QQ')
