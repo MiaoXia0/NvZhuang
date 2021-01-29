@@ -4,7 +4,7 @@
 插件默认启用
 ## 安装方法
 1. 在hoshino/modules文件夹下使用git clone本项目
-2. 在hoshino/config/__bot__.py中添加本插件
+2. 在hoshino/config/\_\_bot\_\_.py中添加本插件
 ## 指令说明
 |指令|功能|
 |---|---|
