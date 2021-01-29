@@ -1,45 +1,40 @@
 from nonebot import MessageSegment
 from hoshino import Service
 from hoshino.typing import CQEvent, HoshinoBot
-from .config import *
 import os
+
 try:
     import ujson as json
 except ImportError:
     import json
 
 sv = Service('NvZhuang', enable_on_default=False)
-# qq = QQ
-# at = AT
 config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
+
 
 @sv.on_fullmatch('at被迫害者')
 async def setAt(bot: HoshinoBot, ev: CQEvent):
-    # global at
-    # at = True
-
     groupid = ev.group_id
     groupid = str(groupid)
     try:
         qq = config[groupid]['QQ']
     except KeyError:
-        qq = 0
+        await bot.send(ev, '请先设置迫害者QQ')
+        return
     config[groupid] = {'AT': True, 'QQ': qq}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已设置@被迫害者')
 
 
-
 @sv.on_fullmatch('不at被迫害者')
 async def setnoAt(bot: HoshinoBot, ev: CQEvent):
-    # global at
-    # at = False
     groupid = ev.group_id
     groupid = str(groupid)
     try:
         qq = config[groupid]['QQ']
     except KeyError:
-        qq = 0
+        await bot.send(ev, '请先设置迫害者QQ')
+        return
     config[groupid] = {'AT': False, 'QQ': qq}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已设置不@被迫害者')
@@ -47,16 +42,13 @@ async def setnoAt(bot: HoshinoBot, ev: CQEvent):
 
 @sv.on_prefix('设置迫害QQ')
 async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
-    # global qq
-    # config
-    # qq = int(ev.message.extract_plain_text())
     groupid = ev.group_id
     groupid = str(groupid)
     try:
         at = config[groupid]['AT']
     except KeyError:
         at = False
-    config[groupid] = { 'AT':at,'QQ': int(ev.message.extract_plain_text())}
+    config[groupid] = {'AT': at, 'QQ': int(ev.message.extract_plain_text())}
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
     await bot.send(ev, '已将被迫害者QQ设为' + str(config[groupid]['QQ']))
 
