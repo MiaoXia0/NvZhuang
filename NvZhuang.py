@@ -9,14 +9,14 @@ at = AT
 
 
 @sv.on_fullmatch('at被迫害者')
-def setAt(bot, ev):
+async def setAt(bot, ev):
     global at
     at = True
     await bot.send(ev, '已设置@被迫害者')
 
 
 @sv.on_fullmatch('不at被迫害者')
-def setnoAt(bot, ev):
+async def setnoAt(bot, ev):
     global at
     at = False
     await bot.send(ev, '已设置不@被迫害者')
