@@ -63,7 +63,7 @@ async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
     groupid = str(groupid)
     try:
         if config[groupid]['AT']:
-            await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！\n' + R.img('NvZhuang.png').cqcode)
+            await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！\n' + R.img('NvZhuang.jpg').cqcode)
         else:
             info = await bot.get_stranger_info(user_id=config[groupid]['QQ'], no_cache=True)
             nickname = info['nickname']
