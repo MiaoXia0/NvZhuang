@@ -30,9 +30,9 @@ async def SetNvZhuangQQ(bot, ev):
 
 
 @sv.on_fullmatch('女装迫害')
-async def XuYuNvZhuang(bot: HoshinoBot, ev: CQEvent):
+async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
     if at:
         await bot.send(ev, MessageSegment.at(qq) + '女装！')
     else:
-        nickname = bot.get_stranger_info(user_id=qq, no_cache=True)['nickname']
+        nickname = await bot.get_stranger_info(user_id=qq, no_cache=True)['nickname']
         await bot.send(ev, nickname + '女装！')
