@@ -17,7 +17,7 @@ config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
 async def setAt(bot: HoshinoBot, ev: CQEvent):
     # global at
     # at = True
-    groupid = await ev.group_id
+    groupid = ev.group_id
     groupid = str(groupid)
     config[groupid]['AT'] = True
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
@@ -29,7 +29,7 @@ async def setAt(bot: HoshinoBot, ev: CQEvent):
 async def setnoAt(bot: HoshinoBot, ev: CQEvent):
     # global at
     # at = False
-    groupid = await ev.group_id
+    groupid = ev.group_id
     groupid = str(groupid)
     config[groupid]['AT'] = False
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
@@ -41,7 +41,7 @@ async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
     # global qq
     # config
     # qq = int(ev.message.extract_plain_text())
-    groupid = await ev.group_id
+    groupid = ev.group_id
     groupid = str(groupid)
     config[groupid]['QQ'] = int(ev.message.extract_plain_text())
     json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
@@ -50,7 +50,7 @@ async def SetNvZhuangQQ(bot: HoshinoBot, ev: CQEvent):
 
 @sv.on_fullmatch('女装迫害')
 async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
-    groupid = await ev.group_id
+    groupid = ev.group_id
     groupid = str(groupid)
     if config[groupid]['AT']:
         await bot.send(ev, MessageSegment.at(config[groupid]['QQ']) + '女装！')
