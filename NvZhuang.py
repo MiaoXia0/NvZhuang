@@ -8,7 +8,7 @@ try:
 except ImportError:
     import json
 
-sv = Service('NvZhuang', enable_on_default=False)
+sv = Service('NvZhuang')
 try:
     config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
 except IOError:
