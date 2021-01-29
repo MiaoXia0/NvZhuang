@@ -1,9 +1,8 @@
-from random import random
-
 from nonebot import MessageSegment
 from hoshino import Service, R
 from hoshino.typing import CQEvent, HoshinoBot
 import os
+import random
 
 try:
     import ujson as json
