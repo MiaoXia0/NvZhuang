@@ -34,5 +34,6 @@ async def NvZhuang(bot: HoshinoBot, ev: CQEvent):
     if at:
         await bot.send(ev, MessageSegment.at(qq) + '女装！')
     else:
-        nickname = await bot.get_stranger_info(user_id=qq, no_cache=True)['nickname']
+        info = await bot.get_stranger_info(user_id=qq, no_cache=True)
+        nickname = info['nickname']
         await bot.send(ev, nickname + '女装！')
