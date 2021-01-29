@@ -9,7 +9,11 @@ except ImportError:
     import json
 
 sv = Service('NvZhuang', enable_on_default=False)
-config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
+try:
+    config = json.load(open(os.path.dirname(__file__) + '/config.json', 'r'))
+except IOError:
+    config = {}
+    json.dump(config, open(os.path.dirname(__file__) + '/config.json', 'w'))
 
 
 @sv.on_fullmatch('at被迫害者')
